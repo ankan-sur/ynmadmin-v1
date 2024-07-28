@@ -1,0 +1,3 @@
+field on shopifyProduct {
+  coalesce([sum(cast(orderLineItems.price, type: "Number") * orderLineItems.currentQuantity), 0])
+}

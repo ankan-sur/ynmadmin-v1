@@ -1,0 +1,3 @@
+field on shopifyCollection {
+coalesce([sum(cast(products.orderLineItems.price, type: "Number") * products.orderLineItems.currentQuantity), 0])
+}
