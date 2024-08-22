@@ -17,6 +17,8 @@ export async function run({ params, logger, api, connections }) {
         collectionTag: true,
         store: true,
         submittedBy: {firstName: true, email: true},
+        distribution: true,
+        participating: true
       }
     });
 

@@ -4,6 +4,7 @@ import { useAction, useUser } from "@gadgetinc/react";
 import Chip from "@material-ui/core/Chip";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { api } from "../api";
 
 const ProductForm = () => {
@@ -11,19 +12,12 @@ const ProductForm = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [tray, setTray] = useState([]);
-    const [distributionType, setDistributionType] = useState("");
-    const [artists, setArtists] = useState([]);
+    const [distribution, setDistribution] = useState("");
     const [{ data, error, fetching }, createProduct] = useAction(api.submitProducts.create);
 
     const shops = [
         { value: "YNM", label: "YNM" },
         { value: "YNE", label: "YNE" },
-    ];
-
-    const availableArtists = [
-        { value: "artist1", label: "Artist 1" },
-        { value: "artist2", label: "Artist 2" },
-        { value: "artist3", label: "Artist 3" },
     ];
 
     const handleAddToTray = (product) => {
@@ -53,10 +47,7 @@ const ProductForm = () => {
         const product = Object.fromEntries(formData.entries());
         product.description = { markdown: product.description };
         product.submittedBy = { _link: user.id };
-        product.distributionType = distributionType;
-        if (distributionType === "Collab" || distributionType === "Bundle") {
-            product.participatingArtists = artists;
-        }
+        product.distribution = distribution;
         console.log("Adding product to tray:", product);
         handleAddToTray(product);
         form.reset();
@@ -69,48 +60,54 @@ const ProductForm = () => {
                 
                 <form>
                     <div>
-                        <label>Title</label> <br/>
+                        <label htmlFor="title">Title</label> <br/>
                         <input
                             type="text"
                             name="title"
+                            id="title"
                             required
                         />
                     </div>
                     <div>
-                        <label>Description</label>  <br/>
+                        <label htmlFor="description">Description</label>  <br/>
                         <textarea
                             name="description"
+                            id="description"
                             required
                         />
                     </div>
                     <div>
-                        <label>Measurements</label> <br/>
+                        <label htmlFor="measurements">Measurements</label> <br/>
                         <input
                             type="text"
                             name="measurements"
+                            id="measurements"
                             required
                         />
                     </div>
                     <div>
-                        <label>Collection Tag</label> <br/>
+                        <label htmlFor="collectionTag">Collection Tag</label> <br/>
                         <input
                             type="text"
                             name="collectionTag"
+                            id="collectionTag"
                             required
                         />
                     </div>
                     <div>
-                        <label>Product Tags (separate by commas) </label> <br/>
+                        <label htmlFor="productTags">Product Tags (separate by commas) </label> <br/>
                         <input
                             type="text"
                             name="productTags"
+                            id="productTags"
                             required
                         />
                     </div>
                     <div>
-                        <label>Store</label> <br/>
+                        <label htmlFor="store">Store</label> <br/>
                         <select
                             name="store"
+                            id="store"
                             required
                         >
                             <option value="">Pick 1</option>
@@ -119,58 +116,63 @@ const ProductForm = () => {
                             ))}
                         </select>
                     </div>
-                    <div>
-                        <label>Distribution Type</label> <br/>
+                    <label>Distribution Type</label> <br/>
+                    <div className="tray w-25 m-auto">
                         <div>
                             <input
                                 type="radio"
-                                name="distributionType"
+                                name="distribution"
                                 value="Collab"
-                                onChange={(e) => setDistributionType(e.target.value)}
+                                id="collab"
+                                className="w-auto h-25"
+                                onChange={(e) => setDistribution(e.target.value)}
                             />
-                            <label>Collab</label>
+                            <label htmlFor="collab">Collab</label>
                         </div>
                         <div>
                             <input
                                 type="radio"
-                                name="distributionType"
+                                name="distribution"
                                 value="Original"
-                                onChange={(e) => setDistributionType(e.target.value)}
+                                id="original"
+                                className="w-auto h-25"
+                                onChange={(e) => setDistribution(e.target.value)}
                             />
-                            <label>Original</label>
+                            <label htmlFor="original">Original</label>
                         </div>
                         <div>
                             <input
                                 type="radio"
-                                name="distributionType"
+                                name="distribution"
                                 value="Commercial"
-                                onChange={(e) => setDistributionType(e.target.value)}
+                                id="commercial"
+                                className="w-auto h-25"
+                                onChange={(e) => setDistribution(e.target.value)}
                             />
-                            <label>Commercial</label>
+                            <label htmlFor="commercial">Commercial</label>
                         </div>
                         <div>
                             <input
                                 type="radio"
-                                name="distributionType"
+                                name="distribution"
                                 value="Bundle"
-                                onChange={(e) => setDistributionType(e.target.value)}
+                                id="bundle"
+                                className="w-auto h-25"
+                                onChange={(e) => setDistribution(e.target.value)}
                             />
-                            <label>Bundle</label>
+                            <label htmlFor="bundle">Bundle</label>
                         </div>
                     </div>
-                    {(distributionType === "Collab" || distributionType === "Bundle") && (
+                    {(distribution === "Collab" || distribution === "Bundle") && (
                         <div>
-                            <label>Participating Artists</label> <br/>
-                            <select
-                                name="participatingArtists"
-                                multiple
-                                value={artists}
-                                onChange={(e) => setArtists(Array.from(e.target.selectedOptions, option => option.value))}
-                            >
-                                {availableArtists.map(artist => (
-                                    <option key={artist.value} value={artist.value}>{artist.label}</option>
-                                ))}
-                            </select>
+                            <label htmlFor="participating">Participating Artists</label> <br/>
+                            <label>(Separate by commas)</label> <br/>
+                            <input
+                                type="text"
+                                name="participating"
+                                id="participating"
+                                required
+                            />
                         </div>
                     )}
                     <button 
@@ -178,7 +180,7 @@ const ProductForm = () => {
                         type="button"
                         onClick={handleAddProduct}
                     >
-                        <CheckCircleIcon/> Add
+                    <AddCircleIcon/>  Add
                     </button>
                 </form>
                 
@@ -188,7 +190,7 @@ const ProductForm = () => {
                             <Chip
                                 key={index}
                                 className={product.store === "YNM" ? "chip ynm-chip" : "chip yne-chip"}
-                                label={`${product.title} - $${product.cost}`}
+                                label={`${product.title} - ${product.distribution}`}
                                 onDelete={() => handleDeleteFromTray(index)}
                             />
                         ))
@@ -210,7 +212,7 @@ const ProductForm = () => {
                         disabled={tray.length === 0}
                         className="btn btn-dark border m-1"
                     >
-                        Submit Products
+                        <CheckCircleIcon/> Submit Products
                     </button>
                 </div>
             

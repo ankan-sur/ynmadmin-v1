@@ -94,6 +94,12 @@ const SalesTable = ({ collection }) => {
             <td> </td>
             <td> <h4> ${collectionSales} </h4> </td>
             </tr>
+            <tr>
+            <td className="status-column"> </td>
+            <td> <h4> Total Profit: </h4> </td> 
+            <td> </td>
+            <td> <h4> ${(collectionSales * .6).toFixed(2)} </h4> </td>
+            </tr>
             </tfoot>            
           </table>
         </div>

@@ -2,6 +2,8 @@
 
 /* Custom Section */
 
+
+
 .trays {
   display: flex;
   flex-direction: column;
@@ -9,9 +11,10 @@
 }
 
 .tray {
-  border: 1px solid #ddd;
+  border: 1px solid #fc00e7;
   border-radius: 8px;
   background-color: #f9f9f9;
+  padding: 10px;
 }
 
 .tray-header {
@@ -88,7 +91,6 @@
 
 .product-submission-form form input
 {
-  padding: 8px;
   border: 1px solid #fc00e7;
   border-radius: 4px;
   width: 40%;

@@ -167,6 +167,16 @@ const ProductList = () => {
                                       <TableCell><strong>Submitted by:</strong></TableCell>
                                       <TableCell>{product.submittedBy.firstName} ({product.submittedBy.email})</TableCell>
                                     </TableRow>
+                                    <TableRow>
+                                      <TableCell><strong>Distribution Type:</strong></TableCell>
+                                      <TableCell>{product.distribution}</TableCell>
+                                    </TableRow>
+                                    {product.participating && product.participating.length > 0 && (
+                                      <TableRow>
+                                        <TableCell><strong>Participating Artists:</strong></TableCell>
+                                        <TableCell>{parseTags(product.participating)}</TableCell>
+                                      </TableRow>
+                                    )}
                                   </TableBody>
                                 </Table>
                               </TableContainer>
@@ -240,6 +250,16 @@ const ProductList = () => {
                                       <TableCell><strong>Submitted by:</strong></TableCell>
                                       <TableCell>{product.submittedBy.firstName} ({product.submittedBy.email})</TableCell>
                                     </TableRow>
+                                    <TableRow>
+                                      <TableCell><strong>Distribution Type:</strong></TableCell>
+                                      <TableCell>{product.distribution}</TableCell>
+                                    </TableRow>
+                                    {product.participating && product.participating.length > 0 && (
+                                      <TableRow>
+                                        <TableCell><strong>Participating Artists:</strong></TableCell>
+                                        <TableCell>{parseTags(product.participating)}</TableCell>
+                                      </TableRow>
+                                    )}
                                   </TableBody>
                                 </Table>
                               </TableContainer>
